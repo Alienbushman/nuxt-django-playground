@@ -16,15 +16,10 @@ class UserTextView(APIView):
 
 	def get(self, request):
 
-		model_name = request.query_params.get('model_name', None)
+		text_example = UserText.objects.all()
 
-		if model_name:
-			models_used = UserText.objects.filter(model_name=model_name)
-		else:
-			models_used = UserText.objects.all()
-
-		if models_used:
-			model_serializer = self.serializer_class(models_used, many=True)
+		if text_example:
+			model_serializer = self.serializer_class(text_example, many=True)
 			return Response(model_serializer.data, status=status.HTTP_200_OK)
 		else:
 			return Response({'message': 'No text found'}, status=status.HTTP_200_OK)

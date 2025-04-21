@@ -4,7 +4,7 @@ from django.urls import path
 from example_api.views import UserTextView
 
 urlpatterns = [
-	path('models/', UserTextView.as_view()),
+	path('user-text/', UserTextView.as_view()),
 ]
 
 if settings.DEBUG:

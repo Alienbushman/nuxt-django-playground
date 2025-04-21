@@ -36,7 +36,7 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger'), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc'), name='schema-redoc'),
     path('admin/', admin.site.urls),
-    path('example_api/', include('example_api.urls'))
+    path('example-api/', include('example_api.urls'))
 
 
 ]
