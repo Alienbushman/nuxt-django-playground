@@ -12,7 +12,11 @@ export const navigationItems = [
 		icon: 'mdi-chart-bell-curve-cumulative',
 		path: '/user-page'
 	},
-
+	{
+		title: 'Theming Page',
+		icon: 'mdi-palette',
+		path: '/theming-page'
+	},
 
 ];
 
