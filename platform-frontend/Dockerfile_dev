@@ -1,0 +1,23 @@
+FROM node:20-alpine
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install
+
+COPY . .
+
+EXPOSE 3000
+
+ENV NUXT_HOST=0.0.0.0
+ENV NODE_ENV=development
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/ || exit 1
+
+# Run dev server with pnpm
+CMD ["pnpm", "run", "dev", "--", "-o"]
