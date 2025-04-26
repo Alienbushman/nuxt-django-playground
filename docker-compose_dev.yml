@@ -3,13 +3,13 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./platform-frontend
+      context: nuxt-frontend
       dockerfile: Dockerfile
     container_name: getting-started-frontend
     ports:
       - "3000:3000"
     volumes:
-      - ./platform-frontend:/app
+      - ./nuxt-frontend:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
