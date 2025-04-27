@@ -4,13 +4,10 @@ services:
   frontend:
     build:
       context: nuxt-frontend
-      dockerfile: Dockerfile
-    container_name: getting-started-frontend
+      dockerfile: Dockerfile_dev
+    container_name: getting-started-frontend-dev
     ports:
       - "3000:3000"
-    volumes:
-      - ./nuxt-frontend:/app
-      - /app/node_modules
     environment:
       - NODE_ENV=development
     networks:
@@ -19,8 +16,8 @@ services:
   backend:
     build:
       context: ./django_gateway/
-      dockerfile: Dockerfile
-    container_name: getting-started-backend
+      dockerfile: Dockerfile_dev
+    container_name: getting-started-backend-dev
     ports:
       - "8000:8000"
     volumes:
