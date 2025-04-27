@@ -1,6 +1,5 @@
 FROM python:3.12-slim
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
@@ -12,6 +11,11 @@ RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
 COPY . .
+
+# Run as a non-root user inside containers
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+
+USER appuser
 
 EXPOSE 8000
 

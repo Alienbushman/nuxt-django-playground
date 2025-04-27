@@ -27,6 +27,10 @@ COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 
 RUN pnpm install --prod
 
+#Run as a non-root user inside containers
+RUN addgroup -g 1001 appgroup && adduser -D -G appgroup -u 1001 appuser
+USER appuser
+
 EXPOSE 3000
 
 ENV NUXT_HOST=0.0.0.0

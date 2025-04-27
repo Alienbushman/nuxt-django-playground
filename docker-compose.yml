@@ -7,11 +7,21 @@ services:
       dockerfile: Dockerfile
     container_name: getting-started-frontend
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Only frontend is exposed to host
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     networks:
-      - app-network
+      - frontend-network
+      - backend-network  # Frontend can talk to backend internally
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   backend:
     build:
@@ -24,11 +34,24 @@ services:
       - ./django_gateway:/app
     environment:
       - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-      - CORS_ORIGIN_WHITELIST=http://localhost:3000
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]  # Allow access from localhost only
+      - CORS_ORIGIN_WHITELIST=http://localhost:3000  # Only frontend is allowed
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     networks:
-      - app-network
+      - frontend-network
+      - backend-network  # Allow frontend to talk to backend internally
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 networks:
-  app-network:
+  frontend-network:
+    driver: bridge
+
+  backend-network:
     driver: bridge
