@@ -26,7 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
-                 '[::1]']
+                 '[::1]',
+                 'getting-started-backend', 'getting-started-frontend', ]
 # CORS_ORIGIN_ALLOW_ALL = True  # Very permissive, use only for debugging
 
 CORS_ALLOWED_ORIGINS = [

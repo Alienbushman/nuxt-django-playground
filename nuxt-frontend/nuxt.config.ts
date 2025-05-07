@@ -33,8 +33,15 @@ export default defineNuxtConfig({
 				}
 			],
 			meta: [
-				{ name: 'getting started', content: 'A basic getting started project' }
+				{name: 'getting started', content: 'A basic getting started project'}
 			]
 		}
-	}
+	},
+
+	runtimeConfig: {
+		apiBaseUrl:"getting-started-backend:8000"
+		// apiBaseUrl:"localhost:8000"
+	},
+
+
 })
